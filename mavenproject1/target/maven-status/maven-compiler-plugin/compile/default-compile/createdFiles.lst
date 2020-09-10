@@ -1,0 +1,13 @@
+no\ntnu\tollefsen\auth\AuthRunOnStartup.class
+com\mycompany\mavenproject1\resources\JavaEE8Resource.class
+no\ntnu\tollefsen\auth\User.class
+no\ntnu\tollefsen\auth\User$State.class
+com\mycompany\mavenproject1\domain\Photo.class
+com\mycompany\mavenproject1\config\DatasourceProducer.class
+com\mycompany\mavenproject1\JAXRSConfiguration.class
+no\ntnu\tollefsen\auth\KeyService.class
+fantItem\FantService.class
+com\mycompany\mavenproject1\domain\Item.class
+com\mycompany\mavenproject1\config\SecurityConfiguration.class
+no\ntnu\tollefsen\auth\AuthenticationService.class
+no\ntnu\tollefsen\auth\Group.class
