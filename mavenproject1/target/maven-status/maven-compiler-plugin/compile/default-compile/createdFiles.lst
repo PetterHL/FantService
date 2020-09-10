@@ -6,8 +6,10 @@ com\mycompany\mavenproject1\domain\Photo.class
 com\mycompany\mavenproject1\config\DatasourceProducer.class
 com\mycompany\mavenproject1\JAXRSConfiguration.class
 no\ntnu\tollefsen\auth\KeyService.class
+fantItem\Mail.class
 fantItem\FantService.class
 com\mycompany\mavenproject1\domain\Item.class
 com\mycompany\mavenproject1\config\SecurityConfiguration.class
 no\ntnu\tollefsen\auth\AuthenticationService.class
 no\ntnu\tollefsen\auth\Group.class
+fantItem\Mail$1.class

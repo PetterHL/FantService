@@ -13,11 +13,14 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -41,6 +44,9 @@ public class FantService {
     
     @Inject
     AuthenticationService authenticationService;
+    
+    @Inject
+    Mail mailService;
     
     @PersistenceContext
     EntityManager em;
@@ -78,7 +84,51 @@ public class FantService {
 
         return Response.ok().build();
     }
-            
+    
+    @DELETE
+    @Path("delete")
+    @RolesAllowed({Group.USER})
+    public Response delete(@QueryParam("itemid") Long itemid) {
+        Item item = em.find(Item.class, itemid);
+        if (item != null){
+            User user = this.getCurrentUser();
+            if (item.getItemBuyer().getUserid().equals(user.getUserid())){
+                em.remove(item);
+                return Response.ok().build();
+            }
+        }
+        
+        return Response.notModified().build();
+    }
+ 
+    @PUT
+    @Path("email")
+    @RolesAllowed({Group.USER})
+    public Response setEmail(
+            @QueryParam("uid") String uid,
+            @FormParam("email") String email) {
+        User user = this.getCurrentUser();
+        if (user.getEmail() == null) {
+            user.setEmail(email);
+        }
+        return Response.ok().build();
+    }
+    
+    @PUT
+    @Path ("purchase")
+    @RolesAllowed({Group.USER})
+    public Response purchase(@QueryParam("itemid") Long itemid)
+    {
+        Item item = em.find(Item.class, itemid);
+        if (item != null){
+           User itemBuyer = this.getCurrentUser();
+           item.setItemBuyer(itemBuyer);
+           mailService.sendEmail(item.getItemOwner().getEmail(), "Item sold", "Your item listed in the fant service has now been sold to the user" + itemBuyer);
+           return Response.ok().build();
+        }
+        return Response.notModified().build();
+    }
+    
 
     private User getCurrentUser(){
         //System.out.printf("Pname low <%s>", principal.getName());
