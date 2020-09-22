@@ -123,7 +123,7 @@ public class FantService {
         if (item != null){
            User itemBuyer = this.getCurrentUser();
            item.setItemBuyer(itemBuyer);
-           mailService.sendEmail(item.getItemOwner().getEmail(), "Item sold", "Your item listed in the fant service has now been sold to the user" + itemBuyer);
+           //mailService.sendEmail(item.getItemOwner().getEmail(), "Item sold", "Your item listed in the fant service has now been sold to the user" + itemBuyer);
            return Response.ok().build();
         }
         return Response.notModified().build();
